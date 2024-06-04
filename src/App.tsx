@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import UpcomingExercises from './components/UpcomingExercises/UpcomingExercises';
+import { Exercise,exercisesMock } from './model';
+import  isDateInCurrentWeek  from './WeekFunctions'
+import NewGoal from './components/NewGoal/NewGoal';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const App: React.FC = () => {
+
+  const [exrecises, setExrecises] = useState<Exercise[]>([]);
+
+  const handleUpcoming = (exercises: Exercise[]): Exercise[] => {
+    return exercises.filter(exercise => isDateInCurrentWeek(exercise.date));
+  };
+  console.log(exrecises.length)
+  if(exrecises.length === 0){
+    return (
+      <div className="App">
+        <NewGoal/>
+      </div>);
+  }
+  else{
+    return (
+      <div className="App">
+          {<UpcomingExercises exrecises={handleUpcoming(exrecises)}/>}
+      </div>
+    );
+  }
 }
 
 export default App;

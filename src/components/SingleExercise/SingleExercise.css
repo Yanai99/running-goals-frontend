@@ -1,0 +1,37 @@
+.single_exercise{
+    display: flex;
+    width: 120%;
+    position: relative;
+    align-items: center;
+    background-color: rgb(231,210,146);
+    border-radius: 15px;
+    height: 3.5rem;
+}
+
+.exrecise_text{
+    padding: 4%;
+    text-align: center;
+    background-color: rgb(175,188,143);
+    border-radius: 15px;
+    margin-left: 3%;
+}
+
+/*make the button be darker and with V after finished*/
+.exrecise_button{
+    position: flex;
+    justify-content: flex-end;
+    width: 40px;
+    height: 40px;
+    margin: 12px;
+    border-radius: 50px;
+    right: 0px;
+    border: none;
+    font-size: 0.7rem;
+    background-color: rgb(81,110,101);
+    color: white;
+    transition: 0.2s all;
+}
+
+.exrecise_button:hover {
+    background-color: rgb(175,188,143);
+  }
