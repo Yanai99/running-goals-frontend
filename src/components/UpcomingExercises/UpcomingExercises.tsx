@@ -14,14 +14,16 @@ const UpcomingExercises:React.FC<Props> = ({exrecises}:Props) => {
     <div className='UpcomingExercises'>
         <div className='UpcomingExercisesHeader'>Upcoming Exrcises:</div>
     {
-        exrecises.map((exrecise)=>(
-            <SingleExercise
-            key = {exrecise.id}
-            distance = {exrecise.distance}
-            date = {exrecise.date}
-            isDone = {exrecise.isDone}
+        exrecises.map((exrecise)=>{
+            const {id,distance,date,isDone} = exrecise
+            return <SingleExercise
+              id = {id}
+              distance = {distance}
+              date = {date}
+              isDone = {isDone}
             />
-        ))
+        }
+      )
     }
     </div>
   )

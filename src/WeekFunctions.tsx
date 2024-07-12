@@ -1,12 +1,12 @@
 const parseDateString = (dateStr: string): Date => {
-    const [day, month, year] = dateStr.split('/').map(Number);
+    const [month, day, year] = dateStr.split('/').map(Number);
     return new Date(year, month - 1, day);
   };
   
   const getWeekStartAndEnd = (date: Date) => {
     const start = new Date(date);
     const end = new Date(date);
-  
+    
     const day = date.getDay();
     const diffToSunday = -day; // Adjust if the current day is not Sunday
   
@@ -15,8 +15,6 @@ const parseDateString = (dateStr: string): Date => {
   
     end.setDate(start.getDate() + 6);
     end.setHours(23, 59, 59, 999); // Set to the end of the day
-  
-    console.log(start,end)
     return { start, end };
   };
   
@@ -26,8 +24,9 @@ const parseDateString = (dateStr: string): Date => {
     const { start, end } = getWeekStartAndEnd(today);
   
     const dateToCheck = parseDateString(dateStr);
-  
     return dateToCheck >= start && dateToCheck <= end;
   };
 
   export default isDateInCurrentWeek;
+
+  // replace all that's here with day.js
