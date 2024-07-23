@@ -5,7 +5,7 @@ import { Exercise } from './model';
 import isDateInCurrentWeek from './WeekFunctions';
 import NewGoal from './components/NewGoal/NewGoal';
 import { auth } from './config/firebase-config'; // Adjust the path as necessary
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, User, getIdToken, signOut  } from 'firebase/auth';
 import AuthForm from './components/AuthForm/AuthForm';
 import axios from 'axios';
 
@@ -26,6 +26,29 @@ interface PostData {
   token: string;
 }
 
+const refreshToken = async () => {
+  if (auth.currentUser) {
+    try {
+      const token = await getIdToken(auth.currentUser, true);
+      console.log("Refreshed Token: ", token);
+    } catch (error) {
+      console.error("Error refreshing token: ", error);
+    }
+  }
+};
+
+const checkTokenExpiry = async () => {
+  if (auth.currentUser) {
+    try {
+      // Firebase SDK will prompt a re-authentication if the token is expired
+      const token = await getIdToken(auth.currentUser, true);
+      console.log("Checked and refreshed token: ", token);
+    } catch (error) {
+      console.error("Error checking token expiry: ", error);
+    }
+  }
+};
+
 /* function expensiveCalculation(exercises:Exercise[]){
   return exercises.filter(exercise => isDateInCurrentWeek(exercise.date)) 
 } */
@@ -34,6 +57,24 @@ const App: React.FC = () => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [user, setUser] = useState<User | null>(null);
   //const periodExercises = useMemo(() => expensiveCalculation(exercises),[exercises]);
+
+  // UseEffect for refreshing the token
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshToken();
+    }, 1 * 60 * 1000); // Refresh token every 30 minutes
+  
+    return () => clearInterval(interval); // Clean up on unmount
+  }, []);
+
+  // UseEffect for checking validation of the token
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkTokenExpiry();
+    }, 2 * 60 * 1000); // Check token expiry every 5 minutes
+  
+    return () => clearInterval(interval); // Clean up on unmount
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {

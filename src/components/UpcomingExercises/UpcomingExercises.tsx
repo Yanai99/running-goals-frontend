@@ -3,7 +3,6 @@ import './UpcomingExercises.css'
 import '../SingleExercise/SingleExercise'
 import SingleExercise from '../SingleExercise/SingleExercise'
 import { Exercise } from '../../model';
-import { exec } from 'child_process';
 
 interface Props{
     exrecises:Exercise[];

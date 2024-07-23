@@ -1,5 +1,5 @@
 import React from 'react'
-import './SingleExercise.css'
+import styles from './SingleExercise.module.less'
 
 interface Props{
   id:string
@@ -10,14 +10,14 @@ interface Props{
 
 const SingleExercise:React.FC<Props> = ({distance,date,isDone}:Props) => {
   return (
-    <div className='single_exercise'>
-      <div className='exrecise_text'>
+    <div className={styles.single_exercise}>
+      <div className={styles.exrecise_text}>
         {distance}
       </div>
-      <div className='exrecise_text'>
+      <div className={styles.exrecise_text}>
         {date}
       </div>
-      <button className='exrecise_button'>Done</button>
+      <button className={styles.exrecise_button}>Done</button>
     </div>
   )
 }
