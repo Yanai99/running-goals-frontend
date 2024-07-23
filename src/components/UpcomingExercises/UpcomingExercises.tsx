@@ -1,8 +1,8 @@
 import React from 'react'
-import './UpcomingExercises.css'
 import '../SingleExercise/SingleExercise'
 import SingleExercise from '../SingleExercise/SingleExercise'
 import { Exercise } from '../../model';
+import styles from './UpcomingExercises.module.less'
 
 interface Props{
     exrecises:Exercise[];
@@ -10,8 +10,8 @@ interface Props{
 
 const UpcomingExercises:React.FC<Props> = ({exrecises}:Props) => {
   return (
-    <div className='UpcomingExercises'>
-        <div className='UpcomingExercisesHeader'>Upcoming Exrcises:</div>
+    <div className={styles.UpcomingExercises}>
+        <div className={styles.UpcomingExercisesHeader}>Upcoming Exrcises:</div>
     {
         exrecises.map((exrecise)=>{
             const {id,distance,date,isDone} = exrecise
