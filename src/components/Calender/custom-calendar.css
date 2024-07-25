@@ -1,0 +1,17 @@
+.react-calendar__navigation {
+  background-color: #729482;
+}
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #516e65;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-done {
+  height: 10px;
+  width: 10px;
+  background-color: #516e65;
+  border-radius: 50%;
+  display: inline-block;
+}

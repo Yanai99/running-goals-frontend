@@ -1,6 +1,7 @@
-import React, { useMemo,useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './App.module.less';
 import UpcomingExercises from './components/UpcomingExercises/UpcomingExercises';
+import MyCalendar from './components/Calender/MyCalendar';
 import { Exercise } from './model';
 import isDateInCurrentWeek from './WeekFunctions';
 import NewGoal from './components/NewGoal/NewGoal';
@@ -30,7 +31,7 @@ const refreshToken = async () => {
   if (auth.currentUser) {
     try {
       const token = await getIdToken(auth.currentUser, true);
-      console.log("Refreshed Token: ", token);
+      /* console.log("Refreshed Token: ", token); */
     } catch (error) {
       console.error("Error refreshing token: ", error);
     }
@@ -48,10 +49,6 @@ const checkTokenExpiry = async () => {
     }
   }
 };
-
-/* function expensiveCalculation(exercises:Exercise[]){
-  return exercises.filter(exercise => isDateInCurrentWeek(exercise.date)) 
-} */
 
 const App: React.FC = () => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -83,7 +80,6 @@ const App: React.FC = () => {
       if (currentUser) {
         try {
           const token = await currentUser.getIdToken();
-          console.log(user?.displayName);
           const response = await sendTokenToServer({token});
           if (response.program) {
             setExercises(response.program);
@@ -98,7 +94,6 @@ const App: React.FC = () => {
   }, []);
 
   const sendTokenToServer = async (data: PostData):Promise<PostResponse> => {
-    console.log(data);
     try {
       const response = await apiClient.post<PostResponse>('/Verify_token', data);
       console.log(response.data)
@@ -129,7 +124,8 @@ const App: React.FC = () => {
     }
     return (
       <div className={styles.App}>
-        <UpcomingExercises exrecises={handleUpcoming(exercises)} />
+        <UpcomingExercises user={user} exrecises={handleUpcoming(exercises)} setExercises = {setExercises} />
+        <MyCalendar user={user} exercises={exercises}/>
       </div>
     );
   }
