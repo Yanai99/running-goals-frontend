@@ -124,7 +124,7 @@ const App: React.FC = () => {
     }
     return (
       <div className={styles.App}>
-        <UpcomingExercises user={user} exrecises={handleUpcoming(exercises)} setExercises = {setExercises} />
+        <UpcomingExercises user={user} exrecises={exercises} setExercises = {setExercises} />
         <MyCalendar user={user} exercises={exercises}/>
       </div>
     );
