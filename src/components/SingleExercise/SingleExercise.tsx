@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './SingleExercise.module.less'
 import {  User, getIdToken  } from 'firebase/auth';
 import axios from 'axios';
-import { Exercise } from '../../model'
+import { Run } from '../../model'
 
 interface Props{
   id:string

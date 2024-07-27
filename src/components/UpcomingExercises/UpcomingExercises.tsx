@@ -1,7 +1,7 @@
 import React from 'react'
 import '../SingleExercise/SingleExercise'
 import SingleExercise from '../SingleExercise/SingleExercise'
-import { Exercise } from '../../model';
+import { Run } from '../../model';
 import styles from './UpcomingExercises.module.less'
 import {  User, getIdToken  } from 'firebase/auth';
 import axios from 'axios';
@@ -9,9 +9,9 @@ import isDateInCurrentWeek from '../../WeekFunctions';
 
 
 interface Props{
-    exrecises:Exercise[];
+    exrecises:Run[];
     user:User | null;
-    setExercises:React.Dispatch<React.SetStateAction<Exercise[]>>;
+    setExercises:React.Dispatch<React.SetStateAction<Run[]>>;
 }
 interface PostData {
   idToken: any;
@@ -20,7 +20,7 @@ interface PostData {
 
 interface PostResponse {
   response: string;
-  program: Exercise[];
+  program: Run[];
 }
 
 const apiClient = axios.create({
@@ -30,7 +30,7 @@ const apiClient = axios.create({
   }
 });
 
-const handleHowManyRemain = (exercises: Exercise[]) => {
+const handleHowManyRemain = (exercises: Run[]) => {
   const upcomingRunnings = handleUpcoming(exercises);
   for(let i = 0; i< upcomingRunnings.length; i++){
     if(!upcomingRunnings[i].isDone)
@@ -39,17 +39,15 @@ const handleHowManyRemain = (exercises: Exercise[]) => {
   return true;
 }
 
-const handleUpcoming = (exercises: Exercise[]): Exercise[] => {
+const handleUpcoming = (exercises: Run[]): Run[] => {
   return exercises.filter(exercise => isDateInCurrentWeek(exercise.date));
 };
 
-export const markRunAsDone = async (data: PostData,setExercises:React.Dispatch<React.SetStateAction<Exercise[]>>): Promise<PostResponse> => {
+export const markRunAsDone = async (data: PostData,setExercises:React.Dispatch<React.SetStateAction<Run[]>>): Promise<PostResponse> => {
   try {
     const response = await apiClient.post<PostResponse>('/run_is_done', data);
     console.log(response.data)
     // need to se Exercises first and then send to server. -Ask Zoe about db incosistencies.
-    
-    //setExercises(response.data.program);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

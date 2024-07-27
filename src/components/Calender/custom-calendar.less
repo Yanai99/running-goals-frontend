@@ -19,4 +19,31 @@
     border-radius: 50%;
     display: inline-block;
 }
-  
+
+.calendar-tile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-tile-content .date {
+    margin-bottom: 5px; /* Adjust as needed */
+}
+
+.calendar-tile-content .dot-done {
+    width: 8px; /* Adjust the size as needed */
+    height: 8px; /* Adjust the size as needed */
+    background-color: @greenPrimary; /* Change the color as needed */
+    border-radius: 50%;
+    margin-top: 2px; /* Adjust as needed */
+}
+
+.calendar-tile-content .dot-not-done {
+    width: 8px; /* Adjust the size as needed */
+    height: 8px; /* Adjust the size as needed */
+    background-color: @mainOrange; /* Change the color as needed */
+    border-radius: 50%;
+    margin-top: 2px; /* Adjust as needed */
+}
+

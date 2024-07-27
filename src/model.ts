@@ -1,4 +1,4 @@
-export interface Exercise{
+export interface Run{
     id:string;
     distance:string;
     date:string;

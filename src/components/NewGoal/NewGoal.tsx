@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios';
 import styles from './NewGoal.module.less'
-import { Exercise } from '../../model'
+import { Run } from '../../model'
 import { User } from 'firebase/auth';
 
 interface PostData {
@@ -13,11 +13,11 @@ interface PostData {
 }
 
 interface PostResponse {
-  program: Exercise[];
+  program: Run[];
 }
 interface Props{
    user:User | null;
-   setExercises:React.Dispatch<React.SetStateAction<Exercise[]>>;
+   setExercises:React.Dispatch<React.SetStateAction<Run[]>>;
 }
 
 const apiClient = axios.create({
@@ -27,7 +27,7 @@ const apiClient = axios.create({
   }
 });
 
-export const createPostNewGoal = async (data: PostData,setExercises:React.Dispatch<React.SetStateAction<Exercise[]>>): Promise<PostResponse> => {
+export const createPostNewGoal = async (data: PostData,setExercises:React.Dispatch<React.SetStateAction<Run[]>>): Promise<PostResponse> => {
   try {
     const response = await apiClient.post<PostResponse>('/new_goal_plan', data);
     console.log(response.data)
@@ -70,7 +70,7 @@ const NewGoal:React.FC<Props> = ({user,setExercises}:Props) => {
   const handleSetNewGoal = 
    async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>
     ,frequency:string,distance:number,startDate:string,endDate:string,user:User | null,
-    setExercises:React.Dispatch<React.SetStateAction<Exercise[]>>)=>{
+    setExercises:React.Dispatch<React.SetStateAction<Run[]>>)=>{
     const idToken = await  user?.getIdToken()
     e.preventDefault();
     console.log(frequency,distance,startDate,endDate,user?.getIdToken());

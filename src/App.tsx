@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './App.module.less';
 import UpcomingExercises from './components/UpcomingExercises/UpcomingExercises';
 import MyCalendar from './components/Calender/MyCalendar';
-import { Exercise } from './model';
-import isDateInCurrentWeek from './WeekFunctions';
+import { Run } from './model';
 import NewGoal from './components/NewGoal/NewGoal';
 import { auth } from './config/firebase-config'; // Adjust the path as necessary
 import { onAuthStateChanged, User, getIdToken, signOut  } from 'firebase/auth';
@@ -20,7 +19,7 @@ const apiClient = axios.create({
 interface PostResponse {
   message: string;
   uid: string;
-  program?: Exercise[];
+  program?: Run[];
 }
 
 interface PostData {
@@ -51,7 +50,7 @@ const checkTokenExpiry = async () => {
 };
 
 const App: React.FC = () => {
-  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [exercises, setExercises] = useState<Run[]>([]);
   const [user, setUser] = useState<User | null>(null);
   //const periodExercises = useMemo(() => expensiveCalculation(exercises),[exercises]);
 
@@ -109,10 +108,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleUpcoming = (exercises: Exercise[]): Exercise[] => {
-    return exercises.filter(exercise => isDateInCurrentWeek(exercise.date));
-  };
-
 
   if (user) {
     if (!exercises.length) {
@@ -125,7 +120,7 @@ const App: React.FC = () => {
     return (
       <div className={styles.App}>
         <UpcomingExercises user={user} exrecises={exercises} setExercises = {setExercises} />
-        <MyCalendar user={user} exercises={exercises}/>
+        <MyCalendar user={user} exercises={exercises} setExercises = {setExercises}/>
       </div>
     );
   }
