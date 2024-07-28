@@ -59,7 +59,6 @@ const NewGoal:React.FC<Props> = ({user,setExercises}:Props) => {
   }
 
   const handleStartDateChange = (startDate:string)=>{
-    console.log(startDate)
     setStartDate(startDate);
   }
 
@@ -73,7 +72,7 @@ const NewGoal:React.FC<Props> = ({user,setExercises}:Props) => {
     setExercises:React.Dispatch<React.SetStateAction<Run[]>>)=>{
     const idToken = await  user?.getIdToken()
     e.preventDefault();
-    console.log(frequency,distance,startDate,endDate,user?.getIdToken());
+    //console.log(frequency,distance,startDate,endDate,user?.getIdToken());
     const postData = {
       currentLevel,
       distance,
@@ -97,7 +96,7 @@ const NewGoal:React.FC<Props> = ({user,setExercises}:Props) => {
 
     <div className={styles.new_goal_input_field}>
     <label>My Current Level:</label>
-      <select onChange={(e)=>handleCurrentLevelChange(e.target.value)}>
+      <select  onChange={(e)=>handleCurrentLevelChange(e.target.value)}>
         <option value="default" selected disabled hidden>Choose here</option>
         <option value="beginner">Beginner</option>
         <option value="intermidiate">Intermidiate</option>

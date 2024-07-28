@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
+import DatePickerComponent from '../DatePicker/DatePickerComponent';
 import 'react-calendar/dist/Calendar.css';
 import { Run } from '../../model';
 import './custom-calendar.css';
 import Modal from 'react-modal';
 import { User } from 'firebase/auth';
 import axios from 'axios';
+import {parseDateStringForCalendar,formatDateToString} from '../../WeekFunctions'
+import styles from './Calendar.module.less'
 
 interface MyCalendarProps {
   exercises: Run[];
@@ -45,12 +48,22 @@ export const editRun = async (data: PostData): Promise<PostResponse> => {
   }
 };
 
+const extractNumFromDist = (distanceString: string): number => {
+  const match = distanceString.match(/\d+/);
+  if (match) {
+    return parseInt(match[0], 10);
+  }
+  throw new Error('No numerical value found in the string');
+};
+
 const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [editModeIsOpen,setEditModeIsOpen] = useState(false);
   const [editedRun, setEditedRun] = useState<Run | undefined>()
   const [isDoneOption, setIsDoneOption] = useState<string>("Done")
+  const [dateOption, setDateOption] = useState<string>("")
+  const [distanceOption, setDistanceOption] = useState<string>("1") // need to handle the initital value
 
   const onDateClick = (value: Date) => {
     setSelectedDate(value);
@@ -61,15 +74,28 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
     editedRun:Run | undefined) => {
       setEditedRun(editedRun);
       setEditModeIsOpen(true);
-    }
+  }
+
+  const handleDistanceChange = (newDistance: string) => {
+    setDistanceOption(newDistance);
+  }
 
   const handleEditSubmit = 
   async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
     const updatedExrecises = exercises.map(run =>{
+      if(editedRun && dateOption !== "")
+        editedRun.date = formatDateToString(dateOption);
+
+      if(editedRun && distanceOption !== ""){
+        editedRun.distance = distanceOption + " km";
+        console.log(editedRun.distance)
+      }
+        
       if(isDoneOption === 'Done' && editedRun)
         editedRun.isDone = true;
       else if(isDoneOption && editedRun)
         editedRun.isDone = false;
+
       if(run.id === editedRun?.id){
         return {id:editedRun.id,distance:editedRun.distance,date:editedRun.date,isDone:editedRun.isDone};
       }
@@ -120,11 +146,13 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
     return null;
   };
 
+
   return (
     <div>
       <Calendar
         onClickDay={onDateClick}
         tileContent={tileContent}
+        locale="en-US" // makes so the week starts from sunday, maybe add a toggle button for that
       />
       <Modal
         isOpen={modalIsOpen}
@@ -167,6 +195,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
         contentLabel="edit mode"
         style={{
           content: {
+            padding: '15%',
             top: '50%',
             left: '50%',
             right: 'auto',
@@ -187,16 +216,29 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
                 run && (
                   <div key={run.id}>
                     <li>{run.distance}  {run.isDone ? 'Done' : 'Not Done'}</li>
-                    <span>Is the Run completed? </span>
-                    <select
-                      name="isDone"
-                      id="isDone"
-                      value={isDoneOption}
-                      onChange={(e) => setIsDoneOption(e.target.value)}
-                    >
-                      <option value="Done">Yes</option>
-                      <option value="Not Done">Not Yet</option>
-                    </select>
+                    <div> 
+                      <span>Is the Run completed? </span>
+                      <select
+                        name="isDone"
+                        id="isDone"
+                        value={isDoneOption}
+                        onChange={(e) => setIsDoneOption(e.target.value)}
+                      >
+                        <option value="Done">Yes</option>
+                        <option value="Not Done">Not Yet</option>
+                      </select>
+                    </div>
+                    <div>
+                      <input type="number" 
+                      value={distanceOption}
+                      onChange={(e) => handleDistanceChange(e.target.value)}/>
+                    </div>
+                    <div className={styles.datePickerContainer}>
+                      <DatePickerComponent
+                      setOutSideValue={setDateOption}
+                      initialValue={parseDateStringForCalendar(run.date)}
+                      />
+                    </div>
                   </div>
                 )
               ))}

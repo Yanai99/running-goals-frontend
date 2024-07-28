@@ -1,6 +1,0 @@
-GreenPrimary rgb(81,110,101)
-GreenSecondery rgb(114,148,130)
-GreenLime rgb(175,188,143)
-YellowPrimary rgb(231,210,146)
-YellowSecondery rgb(244,229,177)
-DarkGreen rgb(39,52,48)

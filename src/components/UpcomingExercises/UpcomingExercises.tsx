@@ -5,7 +5,7 @@ import { Run } from '../../model';
 import styles from './UpcomingExercises.module.less'
 import {  User, getIdToken  } from 'firebase/auth';
 import axios from 'axios';
-import isDateInCurrentWeek from '../../WeekFunctions';
+import {isDateInCurrentWeek} from '../../WeekFunctions';
 
 
 interface Props{

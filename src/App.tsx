@@ -8,6 +8,9 @@ import { auth } from './config/firebase-config'; // Adjust the path as necessary
 import { onAuthStateChanged, User, getIdToken, signOut  } from 'firebase/auth';
 import AuthForm from './components/AuthForm/AuthForm';
 import axios from 'axios';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root'); // need to make sure this is ok
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000', 

@@ -1,3 +1,6 @@
+.datePickerContainer {
+  margin: 20px;
+}
 .react-calendar__navigation {
   background-color: #729482;
 }

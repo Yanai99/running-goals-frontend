@@ -59,6 +59,8 @@ export const EditModal: React.FC<EditModalProps> = (
                   <option value="Done">Yes</option>
                   <option value="Not Done">Not Yet</option>
                 </select>
+                <input type="date" 
+                />
               </div>
             )
           ))}
