@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Calendar from 'react-calendar';
 import DatePickerComponent from '../DatePicker/DatePickerComponent';
 import 'react-calendar/dist/Calendar.css';
@@ -59,11 +59,13 @@ const extractNumFromDist = (distanceString: string): number => {
 const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  // states of edit modal
   const [editModeIsOpen,setEditModeIsOpen] = useState(false);
   const [editedRun, setEditedRun] = useState<Run | undefined>()
   const [isDoneOption, setIsDoneOption] = useState<string>("Done")
   const [dateOption, setDateOption] = useState<string>("")
-  const [distanceOption, setDistanceOption] = useState<string>("1") // need to handle the initital value
+  const [distanceOption, setDistanceOption] = useState<string>("2") // need to handle the initital value
 
   const onDateClick = (value: Date) => {
     setSelectedDate(value);
@@ -73,6 +75,12 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
   const handleEditPressed = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>,
     editedRun:Run | undefined) => {
       setEditedRun(editedRun);
+      console.log('edit pressed',editedRun?.distance)
+      if(editedRun?.distance[1] === ' '){
+        setDistanceOption(editedRun?.distance[0] || '1')
+      }else{
+        setDistanceOption(editedRun?.distance.substring(0, 2) || '1')
+      }
       setEditModeIsOpen(true);
   }
 
@@ -97,7 +105,13 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
         editedRun.isDone = false;
 
       if(run.id === editedRun?.id){
-        return {id:editedRun.id,distance:editedRun.distance,date:editedRun.date,isDone:editedRun.isDone};
+        return {id:editedRun.id,
+                distance:editedRun.distance,
+                date:editedRun.date,
+                status:"",
+                pace:"",
+                isDone:editedRun.isDone,
+                isGoal:editedRun.isGoal};
       }
       else 
         return run;
@@ -106,8 +120,6 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
     setExercises(updatedExrecises) // again updating runs before sending to server
     const idToken = await  user?.getIdToken()
     e.preventDefault();
-
-    // maybe add a wait window - ?
 
     setEditModeIsOpen(false);
     setModalIsOpen(false);
@@ -152,9 +164,10 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
       <Calendar
         onClickDay={onDateClick}
         tileContent={tileContent}
-        locale="en-US" // makes so the week starts from sunday, maybe add a toggle button for that
+        showNavigation = {true}
+        locale="en-US" // makes so the week starts from sunday, add a toggle button for that
       />
-      <Modal
+      <Modal // main modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Exercise Details"
@@ -177,14 +190,19 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
                 const exerciseDate = new Date(exercise.date);
                 return exerciseDate.toDateString() === selectedDate.toDateString();
               }).map(exercise => (
-                <li key={exercise.id}>{exercise.distance}  {exercise.isDone ? 'Done' : null}
-                <button onClick={(e) => handleEditPressed(e,exercise)}>Edit</button> {/* add edit function */}
+                <li key={exercise.id}>
+                  {exercise.distance} {exercise.isDone ? 'Done' : null}
+                  <button onClick={(e) => handleEditPressed(e, exercise)}>Edit</button>
                 </li>
               ))}
+              {exercises.filter(exercise => {
+                const exerciseDate = new Date(exercise.date);
+                return exerciseDate.toDateString() === selectedDate.toDateString();
+              }).length === 0 && (
+                <h1>no run</h1>
+              )}
             </ul>
-            <button onClick={() => setModalIsOpen(false)}>Close</button>
-            <span> </span>
-            
+            <button onClick={() => setModalIsOpen(false)}>Close</button>           
           </div>
         )}
       </Modal>

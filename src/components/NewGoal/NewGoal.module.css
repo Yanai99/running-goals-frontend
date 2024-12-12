@@ -55,6 +55,10 @@
 .new_goal_form button:hover {
   background-color: #afbc8f;
 }
+.new_goal_input_days {
+  display: flex;
+  flex-direction: row;
+}
 .new_goal_div {
   display: flex;
   flex-direction: column;

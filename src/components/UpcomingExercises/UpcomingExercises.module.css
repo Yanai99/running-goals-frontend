@@ -9,6 +9,7 @@
   border-radius: 15px;
   width: 20%;
   margin: 5% 8% 5% 5%;
+  max-width: 250px;
   min-width: 205px;
 }
 .UpcomingExercisesHeader {

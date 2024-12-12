@@ -6,7 +6,7 @@
   align-items: center;
   background-color: #e7d292;
   border-radius: 15px;
-  height: 3.5rem;
+  height: auto;
 }
 .exrecise_text {
   padding: 4%;
@@ -19,8 +19,8 @@
 .exrecise_button {
   position: flex;
   justify-content: flex-end;
-  width: 40px;
-  height: 40px;
+  width: 4em;
+  height: 4em;
   margin: 12px;
   border-radius: 50px;
   right: 0px;
@@ -32,4 +32,18 @@
 }
 .exrecise_button:hover {
   background-color: #afbc8f;
+}
+@media only screen and (max-width: 600px) {
+  .single_exercise {
+    width: 14em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+  }
+  .exrecise_text {
+    padding: 0.2em 0.4em 0.2em 0.3em;
+    text-align: center;
+    background-color: #afbc8f;
+    border-radius: 15px;
+    margin-left: 3%;
+  }
 }

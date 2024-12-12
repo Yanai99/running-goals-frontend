@@ -2,9 +2,14 @@ export interface Run{
     id:string;
     distance:string;
     date:string;
+    status:string;
+    pace:string;
     isDone:boolean;
+    isGoal:boolean;
 }
 
+
+// adding "status:string" and "pace:string" for future features
 /* export const exercisesMock: Exercise[] = [
     { id: "1", distance: "5", date: '26/05/2024', isDone: false },
     { id: 2, distance: 10, date: '27/05/2024', isDone: true },

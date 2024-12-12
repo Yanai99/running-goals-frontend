@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { format } from 'date-fns';
 import styles from './DatePickerComponent.module.less';
 //import {parseDateStrin} from '../../WeekFunctions'
 

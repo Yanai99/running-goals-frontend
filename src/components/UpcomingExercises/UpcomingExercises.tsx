@@ -46,8 +46,6 @@ const handleUpcoming = (exercises: Run[]): Run[] => {
 export const markRunAsDone = async (data: PostData,setExercises:React.Dispatch<React.SetStateAction<Run[]>>): Promise<PostResponse> => {
   try {
     const response = await apiClient.post<PostResponse>('/run_is_done', data);
-    console.log(response.data)
-    // need to se Exercises first and then send to server. -Ask Zoe about db incosistencies.
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -60,6 +58,7 @@ export const markRunAsDone = async (data: PostData,setExercises:React.Dispatch<R
   }
 };
 
+
 const UpcomingExercises:React.FC<Props> = ({exrecises,user,setExercises}:Props) => {
 
   const handleDonePressed = 
@@ -67,7 +66,13 @@ const UpcomingExercises:React.FC<Props> = ({exrecises,user,setExercises}:Props) 
     idRun:string,user:User | null)=>{
     const updatedExrecises = exrecises.map(run =>{
       if(run.id === idRun){
-        return {id:run.id,distance:run.distance,date:run.date,isDone:true};
+        return {id:run.id,
+                distance:run.distance,
+                date:run.date,
+                status:"",
+                pace:"",
+                isDone:true,
+                isGoal:run.isGoal};
       }
       else 
         return run;

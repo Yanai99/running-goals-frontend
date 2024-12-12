@@ -42,13 +42,17 @@ const getWeekStartAndEnd = (date: Date) => {
     const end = new Date(date);
     
     const day = date.getDay();
-    const diffToSunday = -day; // Adjust if the current day is not Sunday
-  
+    let diffToSunday = -day; // Adjust if the current day is not Sunday
+
+    if(diffToSunday === -6)
+      diffToSunday=0
+
     start.setDate(date.getDate() + diffToSunday);
     start.setHours(0, 0, 0, 0); // Set to the start of the day
-  
+ 
     end.setDate(start.getDate() + 6);
     end.setHours(23, 59, 59, 999); // Set to the end of the day
+  
     return { start, end };
 };
   
