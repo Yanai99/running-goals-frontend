@@ -1,0 +1,25 @@
+@import '../../button.less';
+@import '../../colors.less';
+
+.nav_bar{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 60px;
+}
+  
+.nav_bar_button{
+    &:extend(.button all);
+    background-color: @greenSecondery; /* Override background color */
+    border: 2px solid @yellowSecondery;
+    margin-right: 20px;
+    font-size: 25px;
+    color: @yellowPrimary;
+    &:hover {
+        background-color: darken(@greenSecondery,20%);
+    }
+
+    &:active {
+        background-color: darken(@greenSecondery, 10%);
+    }
+}

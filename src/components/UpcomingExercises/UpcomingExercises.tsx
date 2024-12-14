@@ -32,7 +32,7 @@ const apiClient = axios.create({
 
 const handleHowManyRemain = (exercises: Run[]) => {
   const upcomingRunnings = handleUpcoming(exercises);
-  for(let i = 0; i< upcomingRunnings.length; i++){
+  for(let i = 0; i < upcomingRunnings.length; i++){
     if(!upcomingRunnings[i].isDone)
       return false;
   }

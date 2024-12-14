@@ -2,15 +2,23 @@ import React from 'react'
 import { onAuthStateChanged, User, getIdToken, signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase-config'; // Adjust the path as necessary
 import { Run } from '../../model';
+import styles from './NavBar.module.less'
+import { HiOutlineLogout } from "react-icons/hi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+
+
+
 
 interface NavBarProps {
     isSignOutButton: boolean;
+    isSettingsButton:boolean;
     isProfileLogo: boolean;
     setExercises:React.Dispatch<React.SetStateAction<Run[]>>;
     setUser:React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-const NavBar:React.FC<NavBarProps> = ({isSignOutButton,isProfileLogo,setExercises,setUser }:NavBarProps) => {
+const NavBar:React.FC<NavBarProps> = ({isSignOutButton,isSettingsButton,isProfileLogo,setExercises,setUser }:NavBarProps) => {
     const handleSignOut = async () => {
         try {
           await signOut(auth);
@@ -22,9 +30,27 @@ const NavBar:React.FC<NavBarProps> = ({isSignOutButton,isProfileLogo,setExercise
         }
       };
 
+    const handleSettingsPressed = () => {
+        console.log("settings pressed");
+    }
+
+    const handleInfoPressed = () => {
+        console.log("info pressed");
+    }
+    
     return (
-    <div>
-       {isSignOutButton? <button onClick={handleSignOut}>Sign Out</button>:null} 
+    <div className={styles.nav_bar}>
+         <div>
+            Running Goals 
+        </div>
+        <div> {/** right side div */}
+        {isSettingsButton? <button className ={styles.nav_bar_button} onClick={handleSettingsPressed}><IoSettingsOutline />
+        </button> : null} 
+        {isSignOutButton? <button className ={styles.nav_bar_button} onClick={handleSignOut}><HiOutlineLogout />
+        </button> : null} 
+        <button className ={styles.nav_bar_button} onClick={handleInfoPressed}><IoMdInformationCircleOutline />
+        </button>
+        </div>
     </div>
   )
 }

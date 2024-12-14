@@ -141,7 +141,7 @@ const App: React.FC = () => {
       // No current goal
       return (
         <div>
-          <NavBar isSignOutButton={true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
+          <NavBar isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
         <div className={styles.App}>
           <button onClick={handleSignOut}>Sign Out</button>
           <NewGoal user={user} setExercises={setExercises} />
@@ -153,7 +153,7 @@ const App: React.FC = () => {
       // The current goal was achieved
       return (
         <div>
-          <NavBar isSignOutButton={true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
+          <NavBar isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
         <div className={styles.App}>
           <button onClick={handleSignOut}>Sign Out</button>
           <NewGoal user={user} setExercises={setExercises} />
@@ -163,7 +163,7 @@ const App: React.FC = () => {
     }
     return (
       <div>
-        <NavBar isSignOutButton={true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
+        <NavBar isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
         <div className={styles.App}>
           <UpcomingExercises user={user} exrecises={exercises} setExercises={setExercises} />
           <MyCalendar user={user} exercises={exercises} setExercises={setExercises} />
