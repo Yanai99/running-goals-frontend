@@ -4,7 +4,7 @@ import styles from './NewGoal.module.less';
 import { Run } from '../../model';
 import { User } from 'firebase/auth';
 import '../../button.less';
-
+import { backendBaseURL } from '../../API';
 interface PostData {
   idToken: any;
   avgWeeklyKilometer: number;
@@ -24,7 +24,7 @@ interface Props {
 }
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your actual API base URL
+  baseURL: backendBaseURL, // Replace with your actual API base URL
   headers: {
     'Content-Type': 'application/json',
   },

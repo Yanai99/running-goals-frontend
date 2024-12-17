@@ -35,7 +35,7 @@ interface CustomInputProps {
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({ value, onClick }) => (
-  <button className="custom-input" onClick={onClick}>
+  <button className={styles.custom_input} onClick={onClick}>
     {value}
   </button>
 );

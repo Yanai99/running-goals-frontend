@@ -42,6 +42,17 @@
   align-items: center;
   height: 60px;
 }
+.nav_bar_text {
+  padding-left: 16px;
+  margin-left: 16px;
+  width: 40px;
+  color: #e7d292;
+  font-weight: 900;
+  font-size: 2rem;
+  border: solid;
+  border-radius: 50px;
+  background-color: #40574f;
+}
 .nav_bar_button {
   background-color: #729482;
   /* Override background color */

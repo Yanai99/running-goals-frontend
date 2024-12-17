@@ -1,5 +1,224 @@
-.edit-modal {
-  background-color: red;
-  width: 10%;
-  height: 10%;
+.button,
+.edit_modal_button,
+.distance_button {
+  height: 36px;
+  display: inline-flex;
+  /* Allows alignment of text and ensures flexibility */
+  align-items: center;
+  /* Vertically centers the text */
+  justify-content: center;
+  /* Horizontally centers the text */
+  padding: 0.5rem 1rem;
+  /* Adjusts padding for better spacing */
+  border: none;
+  transform-origin: center;
+  font-family: "Gochi Hand", cursive;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 0 #494a4b;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: #5cdb95;
+}
+.button span,
+.edit_modal_button span,
+.distance_button span {
+  background: #f1f5f8;
+  display: inline-block;
+  /* Ensures span behaves properly inside the button */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 2px solid #494a4b;
+  white-space: nowrap;
+  /* Prevents text wrapping */
+}
+.button:active,
+.edit_modal_button:active,
+.distance_button:active {
+  transform: translateY(5px);
+  outline: 0;
+}
+.edit_modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  height: 40%;
+  max-width: 600px;
+  min-width: 320px;
+  padding: 20px;
+  background-color: #f9f1d5;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px #516e65;
+  font-family: "Neucha", cursive;
+  display: flex;
+  justify-content: space-between;
+}
+.modal_title_text {
+  display: flex;
+  justify-content: center;
+  color: #3b514a;
+}
+.modal_content_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.modal_buttons_container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.edit_options_container {
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 16px;
+}
+.edit_field_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: larger;
+}
+.edit_modal_button {
+  background-color: #f4e5b1;
+  border: 2px solid #729482;
+  font-size: 16px;
+  font-weight: bold;
+  color: #26332f;
+}
+.edit_modal_button:hover {
+  background-color: #d5af3e;
+}
+.edit_modal_button:active {
+  background-color: #dec168;
+}
+.radio_button_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  background-color: #f4e5b1;
+  border: solid;
+  border-color: #729482;
+  border-radius: 15px;
+  width: 100px;
+  height: 35px;
+  padding-bottom: 3px;
+}
+.radio_button {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.radio_button_input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.radio_button_label {
+  display: inline-block;
+  padding-left: 30px;
+  position: relative;
+  font-size: 15px;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.radio_button_custom {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-70%);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  background-color: transparent;
+  text-align: center;
+  line-height: 23px;
+  /* Vertically centers text like ✔ and ✖ */
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+}
+/* Checked state - Yes (✔ Green) */
+.radio_button_input:checked + .radio_button_label .radio_button_custom_yes {
+  background-color: #729482;
+  border-color: transparent;
+}
+.radio_button_input:checked + .radio_button_label .radio_button_custom_yes:after {
+  content: "✔";
+}
+.radio_button_input:checked + .radio_button_label {
+  color: #729482;
+}
+/* Checked state - Not Yet (✖ Red) */
+.radio_button_input:checked + .radio_button_label .radio_button_custom_no {
+  background-color: #ff8b8b;
+  border-color: transparent;
+}
+.radio_button_input:checked + .radio_button_label .radio_button_custom_no:after {
+  content: "✖";
+}
+.radio_button_input:checked + .radio_button_label {
+  color: #ff8b8b;
+}
+/* Hover effects */
+.radio_button_label:hover .radio_button_custom {
+  border-color: #777;
+}
+.radio_button_label:hover .radio_button_custom_yes {
+  border-color: #729482;
+}
+.radio_button_label:hover .radio_button_custom_no {
+  border-color: #ff8b8b;
+}
+.distance_option_field {
+  width: 40px;
+  height: 30px;
+  background-color: #f4e5b1;
+  border: solid;
+  border-color: #516e65;
+  border-radius: 15px;
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Neucha", cursive;
+  /* Hide default arrows for number input */
+  -moz-appearance: textfield;
+  /* Firefox */
+  appearance: textfield;
+  /* General browsers */
+  -webkit-appearance: textfield;
+  /* Safari, Chrome */
+  /* Additional rule for Webkit browsers */
+}
+.distance_option_field::-webkit-inner-spin-button,
+.distance_option_field::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  /* Removes extra spacing */
+}
+.distance_button {
+  background-color: #f4e5b1;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: larger;
+  padding-top: 5px;
+  width: 3px;
+}
+.distance_button:hover {
+  background-color: #e7d292;
 }

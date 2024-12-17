@@ -6,7 +6,7 @@ import styles from './UpcomingExercises.module.less'
 import {  User, getIdToken  } from 'firebase/auth';
 import axios from 'axios';
 import {isDateInCurrentWeek} from '../../WeekFunctions';
-
+import { backendBaseURL } from '../../API';
 
 interface Props{
     exrecises:Run[];
@@ -24,7 +24,7 @@ interface PostResponse {
 }
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your actual API base URL
+  baseURL: backendBaseURL, // Replace with your actual API base URL
   headers: {
     'Content-Type': 'application/json'
   }

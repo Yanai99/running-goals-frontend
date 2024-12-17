@@ -1,10 +1,16 @@
-.custom-input {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 10px;
+.custom_input {
+  background-color: #f4e5b1;
+  border: 3px solid #729482;
+  font-size: 20px;
+  padding: 16px 8px 16px 8px;
+  font-family: "Neucha", cursive;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
+  width: 100%;
+  border-radius: 15px;
+  color: #3b514a;
 }
 .datePickerContainer {
-  margin: 20px;
+  display: flex;
+  justify-content: end;
 }

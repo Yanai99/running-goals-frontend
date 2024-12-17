@@ -5,16 +5,17 @@ import MyCalendar from './components/Calender/MyCalendar';
 import { Run } from './model';
 import NewGoal from './components/NewGoal/NewGoal';
 import { auth } from './config/firebase-config'; // Adjust the path as necessary
-import { onAuthStateChanged, User, getIdToken, signOut } from 'firebase/auth';
+import { onAuthStateChanged, User, getIdToken} from 'firebase/auth';
 import AuthForm from './components/AuthForm/AuthForm';
 import axios from 'axios';
 import Modal from 'react-modal';
 import NavBar from './components/NavBar/NavBar';
+import { backendBaseURL } from './API';
 
 Modal.setAppElement('#root'); // need to make sure this is ok
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: backendBaseURL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -116,17 +117,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      setUser(null);
-      setExercises([]);
-      console.log('Signed out successfully');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
   if (loading) {
     // Show a loading screen if loading is true
     return (
@@ -137,25 +127,12 @@ const App: React.FC = () => {
   }
 
   if (user) {
-    if (!exercises.length) {
+    if (!exercises.length || exercises[exercises.length - 1].isDone) {
       // No current goal
       return (
         <div>
-          <NavBar isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
+          <NavBar profileLetter={user?.displayName?.charAt(0).toUpperCase() || "?"} isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
         <div className={styles.App}>
-          <button onClick={handleSignOut}>Sign Out</button>
-          <NewGoal user={user} setExercises={setExercises} />
-        </div>
-        </div>
-      );
-    }
-    if (exercises[exercises.length - 1].isDone) {
-      // The current goal was achieved
-      return (
-        <div>
-          <NavBar isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
-        <div className={styles.App}>
-          <button onClick={handleSignOut}>Sign Out</button>
           <NewGoal user={user} setExercises={setExercises} />
         </div>
         </div>
@@ -163,7 +140,7 @@ const App: React.FC = () => {
     }
     return (
       <div>
-        <NavBar isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
+        <NavBar profileLetter={user?.displayName?.charAt(0).toUpperCase() || "?"} isSignOutButton={true} isSettingsButton = {true} isProfileLogo={true} setExercises={setExercises} setUser={setUser}></NavBar>
         <div className={styles.App}>
           <UpcomingExercises user={user} exrecises={exercises} setExercises={setExercises} />
           <MyCalendar user={user} exercises={exercises} setExercises={setExercises} />

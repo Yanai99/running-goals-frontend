@@ -11,6 +11,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 
 
 interface NavBarProps {
+    profileLetter:string|null;
     isSignOutButton: boolean;
     isSettingsButton:boolean;
     isProfileLogo: boolean;
@@ -18,7 +19,7 @@ interface NavBarProps {
     setUser:React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-const NavBar:React.FC<NavBarProps> = ({isSignOutButton,isSettingsButton,isProfileLogo,setExercises,setUser }:NavBarProps) => {
+const NavBar:React.FC<NavBarProps> = ({profileLetter,isSignOutButton,isSettingsButton,isProfileLogo,setExercises,setUser }:NavBarProps) => {
     const handleSignOut = async () => {
         try {
           await signOut(auth);
@@ -40,16 +41,16 @@ const NavBar:React.FC<NavBarProps> = ({isSignOutButton,isSettingsButton,isProfil
     
     return (
     <div className={styles.nav_bar}>
-         <div>
-            Running Goals 
+        <div className={styles.nav_bar_text}>
+            {profileLetter}
         </div>
         <div> {/** right side div */}
         {isSettingsButton? <button className ={styles.nav_bar_button} onClick={handleSettingsPressed}><IoSettingsOutline />
         </button> : null} 
-        {isSignOutButton? <button className ={styles.nav_bar_button} onClick={handleSignOut}><HiOutlineLogout />
-        </button> : null} 
         <button className ={styles.nav_bar_button} onClick={handleInfoPressed}><IoMdInformationCircleOutline />
         </button>
+        {isSignOutButton? <button className ={styles.nav_bar_button} onClick={handleSignOut}><HiOutlineLogout />
+        </button> : null} 
         </div>
     </div>
   )
