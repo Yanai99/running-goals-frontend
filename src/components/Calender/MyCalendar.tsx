@@ -9,6 +9,8 @@ import { User } from 'firebase/auth';
 import axios from 'axios';
 import {parseDateStringForCalendar,formatDateToString} from '../../WeekFunctions'
 import styles from './Calendar.module.less'
+import { backendBaseURL } from '../../API';
+import { EditModal } from './EditModal/EditModal';
 
 interface MyCalendarProps {
   exercises: Run[];
@@ -25,7 +27,7 @@ interface PostResponse {
 }
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your actual API base URL
+  baseURL: backendBaseURL, // Replace with your actual API base URL
   headers: {
     'Content-Type': 'application/json'
   }
@@ -48,24 +50,17 @@ export const editRun = async (data: PostData): Promise<PostResponse> => {
   }
 };
 
-const extractNumFromDist = (distanceString: string): number => {
-  const match = distanceString.match(/\d+/);
-  if (match) {
-    return parseInt(match[0], 10);
-  }
-  throw new Error('No numerical value found in the string');
-};
-
 const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [activeStartDate, setActiveStartDate] = useState(new Date());
 
   // states of edit modal
   const [editModeIsOpen,setEditModeIsOpen] = useState(false);
   const [editedRun, setEditedRun] = useState<Run | undefined>()
   const [isDoneOption, setIsDoneOption] = useState<string>("Done")
   const [dateOption, setDateOption] = useState<string>("")
-  const [distanceOption, setDistanceOption] = useState<string>("2") // need to handle the initital value
+  const [distanceOption, setDistanceOption] = useState<string>("") // need to handle the initital value
 
   const onDateClick = (value: Date) => {
     setSelectedDate(value);
@@ -75,11 +70,16 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
   const handleEditPressed = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>,
     editedRun:Run | undefined) => {
       setEditedRun(editedRun);
-      console.log('edit pressed',editedRun?.distance)
+      
       if(editedRun?.distance[1] === ' '){
         setDistanceOption(editedRun?.distance[0] || '1')
       }else{
         setDistanceOption(editedRun?.distance.substring(0, 2) || '1')
+      }
+      if(editedRun?.isDone){
+        setIsDoneOption("Done");
+      }else{
+        setIsDoneOption("Not Done");
       }
       setEditModeIsOpen(true);
   }
@@ -116,11 +116,9 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
       else 
         return run;
     })
-    console.log(editedRun?.isDone);
-    setExercises(updatedExrecises) // again updating runs before sending to server
+    setExercises(updatedExrecises) 
     const idToken = await  user?.getIdToken()
     e.preventDefault();
-
     setEditModeIsOpen(false);
     setModalIsOpen(false);
     const postData = {
@@ -151,22 +149,47 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
           </div>
         );
       }
-  
       return null;
     }
-  
     return null;
   };
 
+  // Function to go to the previous month
+  const handlePreviousMonth = () => {
+    const newDate = new Date(
+      activeStartDate.getFullYear(),
+      activeStartDate.getMonth() - 1
+    );
+    setActiveStartDate(newDate);
+  };
+
+  // Function to go to the next month
+  const handleNextMonth = () => {
+    const newDate = new Date(
+      activeStartDate.getFullYear(),
+      activeStartDate.getMonth() + 1
+    );
+    setActiveStartDate(newDate);
+  };
 
   return (
     <div>
       <Calendar
         onClickDay={onDateClick}
         tileContent={tileContent}
-        showNavigation = {true}
+        activeStartDate={activeStartDate}
+        showNavigation = {false}
         locale="en-US" // makes so the week starts from sunday, add a toggle button for that
       />
+      <div className={styles.calendar_navigation_bar}>
+        <button className={styles.prev_month_button} onClick={handlePreviousMonth }>&#9668;</button>
+        <span className={styles.calendar_bottom_text}>
+            {activeStartDate.toLocaleString('default', { month: 'long' })}{' '}
+            {activeStartDate.getFullYear()}
+        </span>
+        <button className={styles.next_month_button} onClick={handleNextMonth}>&#9658;</button>
+      </div>
+
       <Modal // main modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
@@ -207,66 +230,20 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
         )}
       </Modal>
 
-      <Modal // Modal for editing
-        isOpen={editModeIsOpen}
-        onRequestClose={() => {setEditModeIsOpen(false); setModalIsOpen(false)}}
-        contentLabel="edit mode"
-        style={{
-          content: {
-            padding: '15%',
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)'
-          }
-        }}
-      >
-        {selectedDate && (
-          <div>
-            <h2>Editing {selectedDate.toDateString()}</h2>
-            <ul>
-              {exercises.filter(exercise => {
-                const exerciseDate = new Date(exercise.date);
-                return exerciseDate.toDateString() === selectedDate.toDateString();
-              }).map(run => (
-                run && (
-                  <div key={run.id}>
-                    <li>{run.distance}  {run.isDone ? 'Done' : 'Not Done'}</li>
-                    <div> 
-                      <span>Is the Run completed? </span>
-                      <select
-                        name="isDone"
-                        id="isDone"
-                        value={isDoneOption}
-                        onChange={(e) => setIsDoneOption(e.target.value)}
-                      >
-                        <option value="Done">Yes</option>
-                        <option value="Not Done">Not Yet</option>
-                      </select>
-                    </div>
-                    <div>
-                      <input type="number" 
-                      value={distanceOption}
-                      onChange={(e) => handleDistanceChange(e.target.value)}/>
-                    </div>
-                    <div className={styles.datePickerContainer}>
-                      <DatePickerComponent
-                      setOutSideValue={setDateOption}
-                      initialValue={parseDateStringForCalendar(run.date)}
-                      />
-                    </div>
-                  </div>
-                )
-              ))}
-            </ul>
-            <button onClick={() => setEditModeIsOpen(false)}>Cancel</button>
-            <span> </span>
-            <button onClick={(e) => handleEditSubmit(e)}>Submit</button>
-          </div>
-        )}
-      </Modal>
+      <EditModal
+        exercises={exercises}
+        editModeIsOpen={editModeIsOpen}
+        setEditModeIsOpen={setEditModeIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        selectedDate={selectedDate}
+        isDoneOption={isDoneOption}
+        setIsDoneOption={setIsDoneOption}
+        distanceOption={distanceOption}
+        setDistanceOption={setDistanceOption}
+        setDateOption={setDateOption}
+        handleDistanceChange={handleDistanceChange}
+        handleEditSubmit={handleEditSubmit}
+      />
     </div>
   );
 };

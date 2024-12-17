@@ -1,5 +1,209 @@
-.edit-modal {
- background-color: red;
- width: 10%;
- height: 10%;
-  }
+@import '../../../colors.less';
+@import '../../../button.less';
+
+.edit_modal {       
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    height: 40%;
+    max-width: 600px;
+    min-width: 320px;
+    padding: 20px;
+    background-color: lighten(@yellowSecondery,8%);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px @greenPrimary;
+    font-family: "Neucha", cursive;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal_title_text {
+    display: flex;
+    justify-content: center;
+    color: darken(@greenPrimary,10%);
+}
+
+.modal_content_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.modal_buttons_container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.edit_options_container {
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.edit_field_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: larger;
+}
+
+.edit_modal_button {
+    &:extend(.button all);
+    background-color: @yellowSecondery;
+    border: 2px solid @greenSecondery;
+    font-size: 16px;
+    font-weight: bold;
+    color: darken(@greenPrimary,20%);
+    &:hover {
+        background-color: darken(@yellowPrimary,20%);
+    }
+    &:active {
+        background-color: darken(@yellowPrimary, 10%);
+    }
+}
+
+.radio_button_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    background-color: @yellowSecondery;
+    border: solid;
+    border-color: @greenSecondery;
+    border-radius: 15px;
+    width: 100px;
+    height: 35px;
+    padding-bottom: 3px;
+}
+
+.radio_button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio_button_input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio_button_label {
+    display: inline-block;
+    padding-left: 30px;
+    position: relative;
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio_button_custom {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-70%);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    background-color: transparent;
+    text-align: center;
+    line-height: 23px; /* Vertically centers text like ✔ and ✖ */
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+/* Checked state - Yes (✔ Green) */
+.radio_button_input:checked + .radio_button_label .radio_button_custom_yes {
+    background-color: @greenSecondery;
+    border-color: transparent;
+    &:after {
+        content: "✔";
+    }
+}
+
+.radio_button_input:checked + .radio_button_label {
+    color: @greenSecondery;
+}
+
+/* Checked state - Not Yet (✖ Red) */
+.radio_button_input:checked + .radio_button_label .radio_button_custom_no {
+    background-color: @redOption;
+    border-color: transparent;
+    &:after {
+        content: "✖";
+    }
+}
+
+.radio_button_input:checked + .radio_button_label {
+    color: @redOption;
+}
+
+/* Hover effects */
+.radio_button_label:hover .radio_button_custom {
+    border-color: #777;
+}
+
+.radio_button_label:hover .radio_button_custom_yes {
+    border-color: @greenSecondery;
+}
+
+.radio_button_label:hover .radio_button_custom_no {
+    border-color: @redOption;
+}
+
+.distance_option_field {
+    width: 40px;
+    height: 30px;
+    background-color: @yellowSecondery;
+    border: solid;
+    border-color: @greenPrimary;
+    border-radius: 15px;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "Neucha", cursive;
+
+    /* Hide default arrows for number input */
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* General browsers */
+    -webkit-appearance: textfield; /* Safari, Chrome */
+
+    /* Additional rule for Webkit browsers */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0; /* Removes extra spacing */
+    }
+}
+
+.distance_button{
+    //&:extend(.button all);
+    &:extend(.button all);
+    background-color: @yellowSecondery;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: larger;
+    padding-top: 5px;
+    width: 3px;
+    //height: 10px;
+}
+
+.distance_button:hover{
+    background-color: @yellowPrimary;
+}

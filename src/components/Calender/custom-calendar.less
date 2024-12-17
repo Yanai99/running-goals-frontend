@@ -1,32 +1,43 @@
 @import '../../colors.less';
 
-.datePickerContainer {
-    margin: 20px;
-  }
+.react-calendar {
+    border-radius: 15px;
+    width: 100%; /* Responsive width */
+    max-width: 450px;
+    height: auto;
+}
 
 .react-calendar__navigation {
     background-color: @greenSecondery;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
-.react-calendar__tile{
-    height: 45px;
-    width: 30px;
-}
-  
-.dot {
-    height: 10px;
-    width: 10px;
-    background-color: @greenPrimary;
-    border-radius: 50%;
-    display: inline-block;
+.react-calendar__navigation__arrow {
+    background-color: transparent;
+
+    &:hover {
+        background-color: @greenPrimary;
+        transform: scale(1.05);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
 }
 
-.dot-done{
-    height: 10px;
-    width: 10px;
-    background-color: @greenPrimary;
-    border-radius: 50%;
-    display: inline-block;
+.react-calendar__tile {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 10px;
+
+    &--active {
+        background-color: @greenPrimary;
+        color: white;
+        border-radius: 15px;
+    }
+
+    &--now {
+        background-color: @greenLime;
+        border-radius: 15px;
+    }
 }
 
 .calendar-tile-content {
@@ -34,67 +45,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    .date {
+        margin-bottom: 0.3rem;
+    }
+
+    .dot-base {
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .dot-done {
+        .dot-base;
+        background-color: @greenPrimary;
+    }
+
+    .dot-not-done {
+        .dot-base;
+        background-color: @mainOrange;
+    }
 }
 
-.calendar-tile-content .date {
-    margin-bottom: 5px; /* Adjust as needed */
-}
+// not optimal but for now this is the solution
+// disable the selected tile after modal closes
+.react-calendar__tile--active {
+    background-color: transparent !important;
+    color: inherit !important;
+    box-shadow: none !important;
+  }
 
-.calendar-tile-content .dot-done {
-    width: 8px; 
-    height: 8px; 
-    background-color: @greenPrimary; 
-    border-radius: 50%;
-    margin-top: 2px; 
-}
-
-.calendar-tile-content .dot-not-done {
-    width: 8px;
-    height: 8px; 
-    background-color: @mainOrange; 
-    border-radius: 50%;
-    margin-top: 2px; 
-}
-
-.react-calendar {
-    border-radius: 15px;
-    width: 450px;
-    height: 320px;
-}
-
-.react-calendar__tile.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart.react-calendar__tile--rangeEnd.react-calendar__tile--rangeBothEnds.react-calendar__month-view__days__day{
-    background-color: white;
-    color: black;
-    border-radius: 15px;
-} // do i want the last date that was pressed on to show?
-
-.react-calendar__tile.react-calendar__tile--now.react-calendar__month-view__days__day {
-    background-color: @greenLime;
-    border-radius: 15px;
-}
-
-.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
-    display: none;
-}
-
-.react-calendar__navigation__arrow.react-calendar__navigation__next2-button{
-    display: none;
-}
-
-.react-calendar__navigation{
-    border-top-left-radius: 15px; /* Adjust the value for the desired roundness */
-    border-top-right-radius: 15px;
-}
-
-.react-calendar__navigation__arrow.react-calendar__navigation__prev-button:enabled:hover{
-    background-color: @greenPrimary;
-    border-top-left-radius: 15px;
-}
-
-.react-calendar__navigation__arrow.react-calendar__navigation__prev-button:enabled:focus {
-    background-color: @greenPrimary;
-    border-top-left-radius: 15px;
-}
-
-
-// calender nav css
+  // bug, clicking on the current date disables its highlight

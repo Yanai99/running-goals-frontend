@@ -1,0 +1,37 @@
+@import '../../button.less';
+@import '../../colors.less';
+
+.nav_bar{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.nav_bar_text{
+    padding-left: 16px;
+    margin-left:16px;
+    width: 40px;
+    color: @yellowPrimary;
+    font-weight: 900;
+    font-size: 2rem;
+    border: solid;
+    border-radius: 50px;
+    background-color: darken(@greenPrimary,8%);
+}
+
+.nav_bar_button{
+    &:extend(.button all);
+    background-color: @greenSecondery; /* Override background color */
+    border: 2px solid @yellowSecondery;
+    margin-right: 20px;
+    font-size: 25px;
+    color: @yellowPrimary;
+    &:hover {
+        background-color: darken(@greenSecondery,20%);
+    }
+
+    &:active {
+        background-color: darken(@greenSecondery, 10%);
+    }
+}

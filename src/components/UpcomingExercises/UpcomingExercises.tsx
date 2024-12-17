@@ -6,7 +6,7 @@ import styles from './UpcomingExercises.module.less'
 import {  User, getIdToken  } from 'firebase/auth';
 import axios from 'axios';
 import {isDateInCurrentWeek} from '../../WeekFunctions';
-
+import { backendBaseURL } from '../../API';
 
 interface Props{
     exrecises:Run[];
@@ -24,7 +24,7 @@ interface PostResponse {
 }
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your actual API base URL
+  baseURL: backendBaseURL, // Replace with your actual API base URL
   headers: {
     'Content-Type': 'application/json'
   }
@@ -32,7 +32,7 @@ const apiClient = axios.create({
 
 const handleHowManyRemain = (exercises: Run[]) => {
   const upcomingRunnings = handleUpcoming(exercises);
-  for(let i = 0; i< upcomingRunnings.length; i++){
+  for(let i = 0; i < upcomingRunnings.length; i++){
     if(!upcomingRunnings[i].isDone)
       return false;
   }

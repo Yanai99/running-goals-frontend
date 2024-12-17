@@ -8,9 +8,10 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 import styles from './AuthForm.module.less'
+import { backendBaseURL } from '../../API';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your actual API base URL
+  baseURL: backendBaseURL, // Replace with your actual API base URL
   headers: {
     'Content-Type': 'application/json',
   },

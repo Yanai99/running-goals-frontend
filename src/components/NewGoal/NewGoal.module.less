@@ -1,71 +1,73 @@
 @import '../../colors.less';
+@import '../../button.less';
 
-.new_goal_input_field{
+.new_goal_input_field {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    label{
-        font-size:large;
+    label {
+        font-size: large;
         text-align: center;
         color: white;
         padding-top: 3%;
         padding-bottom: 2%;
     }
-    select{
+    select {
         border-radius: 15px;
         width: 80%;
         height: 2rem;
         text-align: center;
         background-color: @yellowSecondery;
     }
-    input{
+    input {
         border-radius: 15px;
         font-weight: bold;
-        width:80%;
+        width: 80%;
         height: 2rem;
         text-align: center;
-        background-color:  @yellowSecondery;
+        background-color: @yellowSecondery;
     }
 }
 
-.new_goal_form{
+.new_goal_form {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: @greenSecondery;
-    gap:1rem;
+    gap: 1rem;
     padding: 5%;
     border-radius: 15px;
     min-width: 205px;
     padding-bottom: 12%;
-    button{
-        position: flex;
-        justify-content: flex-end;
-        width: 60%;
-        height: 60px;
-        margin: 5px;
-        border-radius: 50px;
-        right: 0px;
-        border: none;
-        font-size: 1.5rem;
-        font-weight: bold;
-        background-color: @yellowPrimary;
-        color: @greenPrimary;
-        transition: 0.2s all;
-    }
-    button:hover{
-        background-color: @greenLime;
-    }
 }
 
 .new_goal_input_days {
     display: flex;
     flex-direction: row;
-  }
+}
 
-.new_goal_div{
+.new_goal_div {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.new_goal_button {
+    &:extend(.button all);
+
+    /* Customizations for this button */
+    //width: 200px; /* Override the width */
+    //height: 80px; /* Override the height */
+    font-size: 26px; /* Adjust font size */
+    background-color: @greenSecondery; /* Override background color */
+    border: 2px solid @yellowSecondery;
+
+    &:hover {
+        background-color: @greenPrimary;
+    }
+
+    &:active {
+        background-color: darken(@greenSecondery, 10%);
+    }
 }

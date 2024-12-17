@@ -2,72 +2,124 @@ import React from 'react'
 import { Run } from '../../../model';
 import styles from './EditModal.module.less'
 import Modal from 'react-modal';
+import {parseDateStringForCalendar} from '../../../WeekFunctions'
+import DatePickerComponent from '../../DatePicker/DatePickerComponent';
 
 interface EditModalProps {
-  editModeIsOpen: any;
+  exercises:Run[]
+  editModeIsOpen: boolean;
   setEditModeIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  // edited fields and setters of the run
   selectedDate: Date | null;
-  exercises:Run[]
   isDoneOption:string;
   setIsDoneOption:React.Dispatch<React.SetStateAction<string>>;
+  distanceOption:string;
+  setDistanceOption:React.Dispatch<React.SetStateAction<string>>;
+  setDateOption:React.Dispatch<React.SetStateAction<string>>;
+
+  handleDistanceChange:(newDistance: string) => void;
   handleEditSubmit:(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>;
 }
 
 export const EditModal: React.FC<EditModalProps> = (
-  {editModeIsOpen,setEditModeIsOpen,setModalIsOpen,selectedDate,exercises,isDoneOption,setIsDoneOption, handleEditSubmit}) => {
+  {exercises,editModeIsOpen,setEditModeIsOpen,setModalIsOpen,selectedDate,isDoneOption,
+    setIsDoneOption,distanceOption,handleDistanceChange,handleEditSubmit,setDateOption
+  }) => {
+
   return (
     <Modal // Modal for editing
     isOpen={editModeIsOpen}
     onRequestClose={() => {setEditModeIsOpen(false); setModalIsOpen(false)}}
-    contentLabel="edit mode"
-    style={{
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: '#f0f0f0',  // Example custom background color
-          padding: '20px',  // Example custom padding
-          borderRadius: '8px'  // Example custom border radius
-        },
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.75)'  // Example custom overlay color
-        }
-      }}
+    contentLabel={styles.edit_modal}
+    className={styles.edit_modal}
   >
     {selectedDate && (
-      <div>
+      <div className={styles.modal_content_container}>
+        <div className={styles.modal_title_text}>
         <h2>Editing {selectedDate.toDateString()}</h2>
-        <ul>
+        </div>
           {exercises.filter(exercise => {
             const exerciseDate = new Date(exercise.date);
             return exerciseDate.toDateString() === selectedDate.toDateString();
           }).map(run => (
             run && (
-              <div key={run.id}>
-                <li>{run.distance}  {run.isDone ? 'Done' : 'Not Done'}</li>
-                <span>Is the Run completed? </span>
-                <select
-                  name="isDone"
-                  id="isDone"
-                  value={isDoneOption}
-                  onChange={(e) => setIsDoneOption(e.target.value)}
-                >
-                  <option value="Done">Yes</option>
-                  <option value="Not Done">Not Yet</option>
-                </select>
-                <input type="date" 
-                />
+              <div className={styles.edit_options_container}  key={run.id}>
+                <div className={styles.edit_field_container}>
+                  <span>Is the Run completed? </span>
+                <div className={styles.radio_button_container}>
+                  <div className={styles.radio_button}>
+                    <input
+                      type="radio"
+                      id="done"
+                      name="isDone"
+                      value="Done"
+                      className={styles.radio_button_input}
+                      checked={isDoneOption === "Done"}
+                      onChange={(e) => setIsDoneOption(e.target.value)}
+                    />
+                    <label htmlFor="done" className={styles.radio_button_label}>
+                      <span className={`${styles.radio_button_custom} ${styles.radio_button_custom_yes}`}></span>
+                    </label>
+                  </div>
+                    
+                  <div className={styles.radio_button}>
+                    <input
+                      type="radio"
+                      id="notDone"
+                      name="isDone"
+                      value="Not Done"
+                      className={styles.radio_button_input}
+                      checked={isDoneOption === "Not Done"}
+                      onChange={(e) => setIsDoneOption(e.target.value)}
+                    />
+                    <label htmlFor="notDone" className={styles.radio_button_label}>
+                      <span className={`${styles.radio_button_custom} ${styles.radio_button_custom_no}`}></span>
+                    </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.edit_field_container}>
+                  <span>Set the distance:</span>
+                  <button className={styles.distance_button}
+                        type="button"
+                        onClick={() => handleDistanceChange(String(Math.max(0, Number(distanceOption) - 1)))} // Ensure it doesn't go below 0
+                      >
+                        &lt;
+                      </button>
+                  <input className={styles.distance_option_field} type="number" 
+                  value={distanceOption}
+                  onChange={(e) => handleDistanceChange(e.target.value)}/>
+                    <button className={styles.distance_button}
+                        type="button"
+                        onClick={() => handleDistanceChange(String(Number(distanceOption) + 1))}
+                      >
+                        &gt;
+                      </button>
+                </div>
+                
+                <div>
+
+                  <div className={styles.edit_field_container}>
+                    <span>Set the date:</span>
+                  <DatePickerComponent
+                  setOutSideValue={setDateOption}
+                  initialValue={parseDateStringForCalendar(run.date)}
+                  />
+                  </div>
+
+                </div>
               </div>
             )
           ))}
-        </ul>
-        <button onClick={() => setEditModeIsOpen(false)}>Cancel</button>
-        <span> </span>
-        <button onClick={(e) => handleEditSubmit(e)}>Submit</button>
+        <div className={styles.modal_buttons_container}>
+        <button className={styles.edit_modal_button} 
+         onClick={() => setEditModeIsOpen(false)}>Cancel</button>
+        <button className={styles.edit_modal_button}
+         onClick={(e) => handleEditSubmit(e)}>Submit</button>
+        </div>
       </div>
     )}
   </Modal>
