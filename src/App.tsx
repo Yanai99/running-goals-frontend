@@ -11,6 +11,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import NavBar from './components/NavBar/NavBar';
 import { backendBaseURL } from './API';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 
 Modal.setAppElement('#root'); // need to make sure this is ok
 
@@ -82,7 +83,7 @@ const App: React.FC = () => {
 
       if (currentUser) {
         try {
-          setLoading(true); // Start loading
+          setLoading(true);
           const token = await currentUser.getIdToken();
           const response = await sendTokenToServer({ token });
           if (response.program) {
@@ -91,10 +92,10 @@ const App: React.FC = () => {
         } catch (error) {
           console.error('Error getting token or sending to server:', error);
         } finally {
-          setLoading(false); // End loading
+          setLoading(false); 
         }
       } else {
-        setLoading(false); // End loading if no user
+        setLoading(false); 
       }
     });
 
@@ -118,10 +119,9 @@ const App: React.FC = () => {
   };
 
   if (loading) {
-    // Show a loading screen if loading is true
     return (
-      <div className={styles.App}>
-        <p>Loading...</p>
+      <div className={styles.loading_screen}>
+        <LoadingScreen/>
       </div>
     );
   }
