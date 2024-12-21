@@ -1,4 +1,6 @@
-@import "colors";
+@import "./GlobalLessFiles/colors.less";
+@import "./GlobalLessFiles/button.less";
+
 
 html, body, #root {
   background-color: @greenPrimary;
@@ -21,6 +23,13 @@ html, body, #root {
   align-items: center;
   background-color: @main-backGround;
   font-family: "Neucha", cursive;
+}
+
+.loading_screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media only screen and (max-width: 600px) {

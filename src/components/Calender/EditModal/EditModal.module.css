@@ -1,5 +1,5 @@
 .button,
-.edit_modal_button,
+.bottom_modal_button,
 .distance_button {
   height: 36px;
   display: inline-flex;
@@ -22,7 +22,7 @@
   background-color: #5cdb95;
 }
 .button span,
-.edit_modal_button span,
+.bottom_modal_button span,
 .distance_button span {
   background: #f1f5f8;
   display: inline-block;
@@ -34,10 +34,23 @@
   /* Prevents text wrapping */
 }
 .button:active,
-.edit_modal_button:active,
+.bottom_modal_button:active,
 .distance_button:active {
   transform: translateY(5px);
   outline: 0;
+}
+.bottom_modal_button {
+  background-color: #f4e5b1;
+  border: 2px solid #729482;
+  font-size: 16px;
+  font-weight: bold;
+  color: #26332f;
+}
+.bottom_modal_button:hover {
+  background-color: #d5af3e;
+}
+.bottom_modal_button:active {
+  background-color: #dec168;
 }
 .edit_modal {
   position: absolute;
@@ -85,19 +98,6 @@
   justify-content: space-between;
   gap: 12px;
   font-size: larger;
-}
-.edit_modal_button {
-  background-color: #f4e5b1;
-  border: 2px solid #729482;
-  font-size: 16px;
-  font-weight: bold;
-  color: #26332f;
-}
-.edit_modal_button:hover {
-  background-color: #d5af3e;
-}
-.edit_modal_button:active {
-  background-color: #dec168;
 }
 .radio_button_container {
   display: flex;

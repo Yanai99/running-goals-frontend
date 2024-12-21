@@ -1,5 +1,5 @@
-@import '../../../colors.less';
-@import '../../../button.less';
+@import '../../../GlobalLessFiles/colors.less';
+@import '../../../GlobalLessFiles/button.less';
 
 .edit_modal {       
     position: absolute;
@@ -53,21 +53,6 @@
     justify-content: space-between;
     gap: 12px;
     font-size: larger;
-}
-
-.edit_modal_button {
-    &:extend(.button all);
-    background-color: @yellowSecondery;
-    border: 2px solid @greenSecondery;
-    font-size: 16px;
-    font-weight: bold;
-    color: darken(@greenPrimary,20%);
-    &:hover {
-        background-color: darken(@yellowPrimary,20%);
-    }
-    &:active {
-        background-color: darken(@yellowPrimary, 10%);
-    }
 }
 
 .radio_button_container {

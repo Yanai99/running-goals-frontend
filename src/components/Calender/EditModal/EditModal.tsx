@@ -115,9 +115,9 @@ export const EditModal: React.FC<EditModalProps> = (
             )
           ))}
         <div className={styles.modal_buttons_container}>
-        <button className={styles.edit_modal_button} 
+        <button className={styles.bottom_modal_button} 
          onClick={() => setEditModeIsOpen(false)}>Cancel</button>
-        <button className={styles.edit_modal_button}
+        <button className={styles.bottom_modal_button}
          onClick={(e) => handleEditSubmit(e)}>Submit</button>
         </div>
       </div>

@@ -1,4 +1,5 @@
 .button,
+.bottom_modal_button,
 .nav_bar_button {
   height: 36px;
   display: inline-flex;
@@ -21,6 +22,7 @@
   background-color: #5cdb95;
 }
 .button span,
+.bottom_modal_button span,
 .nav_bar_button span {
   background: #f1f5f8;
   display: inline-block;
@@ -32,9 +34,23 @@
   /* Prevents text wrapping */
 }
 .button:active,
+.bottom_modal_button:active,
 .nav_bar_button:active {
   transform: translateY(5px);
   outline: 0;
+}
+.bottom_modal_button {
+  background-color: #f4e5b1;
+  border: 2px solid #729482;
+  font-size: 16px;
+  font-weight: bold;
+  color: #26332f;
+}
+.bottom_modal_button:hover {
+  background-color: #d5af3e;
+}
+.bottom_modal_button:active {
+  background-color: #dec168;
 }
 .nav_bar {
   display: flex;

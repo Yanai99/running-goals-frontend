@@ -65,6 +65,9 @@ const UpcomingExercises:React.FC<Props> = ({exrecises,user,setExercises}:Props) 
   async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>,
     idRun:string,user:User | null)=>{
     const updatedExrecises = exrecises.map(run =>{
+      if(run.isGoal){
+        alert("yay");
+      }
       if(run.id === idRun){
         return {id:run.id,
                 distance:run.distance,
@@ -77,7 +80,6 @@ const UpcomingExercises:React.FC<Props> = ({exrecises,user,setExercises}:Props) 
       else 
         return run;
     })
-    console.log(handleUpcoming(exrecises));
     setExercises(updatedExrecises)
     const idToken = await  user?.getIdToken()
     e.preventDefault();
