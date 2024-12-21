@@ -13,6 +13,7 @@ import NavBar from './components/NavBar/NavBar';
 import { backendBaseURL } from './API';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 
+
 Modal.setAppElement('#root'); // need to make sure this is ok
 
 const apiClient = axios.create({

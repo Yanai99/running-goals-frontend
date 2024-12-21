@@ -3,7 +3,6 @@ import axios from 'axios';
 import styles from './NewGoal.module.less';
 import { Run } from '../../model';
 import { User } from 'firebase/auth';
-import '../../button.less';
 import { backendBaseURL } from '../../API';
 interface PostData {
   idToken: any;

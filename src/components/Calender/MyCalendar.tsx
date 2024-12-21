@@ -11,6 +11,7 @@ import {parseDateStringForCalendar,formatDateToString} from '../../WeekFunctions
 import styles from './Calendar.module.less'
 import { backendBaseURL } from '../../API';
 import { EditModal } from './EditModal/EditModal';
+import MainModal from './MainModal/MainModal';
 
 interface MyCalendarProps {
   exercises: Run[];
@@ -154,7 +155,6 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
     return null;
   };
 
-  // Function to go to the previous month
   const handlePreviousMonth = () => {
     const newDate = new Date(
       activeStartDate.getFullYear(),
@@ -163,7 +163,6 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
     setActiveStartDate(newDate);
   };
 
-  // Function to go to the next month
   const handleNextMonth = () => {
     const newDate = new Date(
       activeStartDate.getFullYear(),
@@ -190,45 +189,14 @@ const MyCalendar: React.FC<MyCalendarProps> = ({exercises,user,setExercises}) =>
         <button className={styles.next_month_button} onClick={handleNextMonth}>&#9658;</button>
       </div>
 
-      <Modal // main modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Exercise Details"
-        style={{
-          content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)'
-          }
-        }}
-      >
-        {selectedDate && (
-          <div>
-            <h2>Exercises on {selectedDate.toDateString()}</h2>
-            <ul>
-              {exercises.filter(exercise => {
-                const exerciseDate = new Date(exercise.date);
-                return exerciseDate.toDateString() === selectedDate.toDateString();
-              }).map(exercise => (
-                <li key={exercise.id}>
-                  {exercise.distance} {exercise.isDone ? 'Done' : null}
-                  <button onClick={(e) => handleEditPressed(e, exercise)}>Edit</button>
-                </li>
-              ))}
-              {exercises.filter(exercise => {
-                const exerciseDate = new Date(exercise.date);
-                return exerciseDate.toDateString() === selectedDate.toDateString();
-              }).length === 0 && (
-                <h1>no run</h1>
-              )}
-            </ul>
-            <button onClick={() => setModalIsOpen(false)}>Close</button>           
-          </div>
-        )}
-      </Modal>
+      <MainModal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        selectedDate={selectedDate}
+        exercises={exercises}
+        handleEditPressed={handleEditPressed}
+      /> 
+
 
       <EditModal
         exercises={exercises}

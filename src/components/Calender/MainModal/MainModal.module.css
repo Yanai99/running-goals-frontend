@@ -2,13 +2,9 @@
 .bottom_modal_button {
   height: 36px;
   display: inline-flex;
-  /* Allows alignment of text and ensures flexibility */
   align-items: center;
-  /* Vertically centers the text */
   justify-content: center;
-  /* Horizontally centers the text */
   padding: 0.5rem 1rem;
-  /* Adjusts padding for better spacing */
   border: none;
   transform-origin: center;
   font-family: "Gochi Hand", cursive;
@@ -16,7 +12,7 @@
   font-size: 15px;
   cursor: pointer;
   border-radius: 5px;
-  box-shadow: 0 2px 0 #494a4b;
+  box-shadow: 0 2px 0 #516e65;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   background-color: #5cdb95;
 }
@@ -24,12 +20,10 @@
 .bottom_modal_button span {
   background: #f1f5f8;
   display: inline-block;
-  /* Ensures span behaves properly inside the button */
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: 2px solid #494a4b;
   white-space: nowrap;
-  /* Prevents text wrapping */
 }
 .button:active,
 .bottom_modal_button:active {
@@ -49,34 +43,52 @@
 .bottom_modal_button:active {
   background-color: #dec168;
 }
-html,
-body,
-#root {
-  background-color: #516e65;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-.button,
-.bottom_modal_button {
-  width: 16px;
-}
-.App {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffe6;
-  font-family: "Neucha", cursive;
-}
-.loading_screen {
+.main_modal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 22%;
+  height: 20%;
+  max-width: 600px;
+  min-width: 320px;
+  padding: 20px;
+  background-color: #f9f1d5;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px #516e65;
+  font-family: "Neucha", cursive;
+  display: flex;
+  justify-content: space-around;
 }
-@media only screen and (max-width: 600px) {
-  .App {
-    flex-direction: column;
-  }
+.modal_content_container {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.detailes_row {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.detailes_row_no_run {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 40px;
+}
+.main_modal_buttons_container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin: 20px;
+  width: 100%;
+}
+.beach_icon {
+  height: 100%;
+  width: 100%;
 }
