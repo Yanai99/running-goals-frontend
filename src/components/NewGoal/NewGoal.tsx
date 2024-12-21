@@ -199,3 +199,9 @@ const NewGoal: React.FC<Props> = ({ user, setExercises }: Props) => {
 };
 
 export default NewGoal;
+
+/** 
+ * 
+ * 1. add validation for included and excluded days
+ * 2. change all numbers format same as in edit modal
+*/

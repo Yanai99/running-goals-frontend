@@ -1,0 +1,73 @@
+@import '../../../GlobalLessFiles/colors.less';
+@import '../../../GlobalLessFiles/button.less';
+
+.settings_modal {       
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    height: 40%;
+    max-width: 600px;
+    min-width: 320px;
+    padding: 20px;
+    background-color: lighten(@yellowSecondery,8%);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px @greenPrimary;
+    font-family: "Neucha", cursive;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction:column;
+}
+
+.modal_buttons_container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.button_active {
+    &:extend(.button all);
+    background-color: @greenSecondery;
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
+}
+  
+.button_inactive {
+    &:extend(.button all);
+    background-color: @yellowSecondery;
+    transition: all 0.3s ease-in-out;
+}
+
+.radio_options_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.radio_buttons_container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.reset_button{
+    &:extend(.button all);
+    background-color: darken(@mainOrange,20%);
+    height: 50px;
+}
+
+.reset_button:hover{
+    &:extend(.button all);
+    background-color: darken(@redOption,10%);
+    height: 50px;
+}
+
+.centered_container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.settings_text{
+    //width:10px;
+}

@@ -14,12 +14,15 @@ interface NavBarProps {
     profileLetter:string|null;
     isSignOutButton: boolean;
     isSettingsButton:boolean;
-    isProfileLogo: boolean;
     setExercises:React.Dispatch<React.SetStateAction<Run[]>>;
     setUser:React.Dispatch<React.SetStateAction<User | null>>;
+    setSettingsModalIsOpen:React.Dispatch<React.SetStateAction<boolean>>;
+    setInfoModalIsOpen:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NavBar:React.FC<NavBarProps> = ({profileLetter,isSignOutButton,isSettingsButton,isProfileLogo,setExercises,setUser }:NavBarProps) => {
+const NavBar:React.FC<NavBarProps> = ({profileLetter,isSignOutButton,isSettingsButton,setExercises,setUser
+    ,setSettingsModalIsOpen,setInfoModalIsOpen
+ }:NavBarProps) => {
     const handleSignOut = async () => {
         try {
           await signOut(auth);
@@ -32,11 +35,11 @@ const NavBar:React.FC<NavBarProps> = ({profileLetter,isSignOutButton,isSettingsB
       };
 
     const handleSettingsPressed = () => {
-        console.log("settings pressed");
+        setSettingsModalIsOpen(true);
     }
 
     const handleInfoPressed = () => {
-        console.log("info pressed");
+        setInfoModalIsOpen(true);
     }
     
     return (

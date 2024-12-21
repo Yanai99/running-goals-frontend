@@ -29,7 +29,7 @@ export const EditModal: React.FC<EditModalProps> = (
   }) => {
 
   return (
-    <Modal // Modal for editing
+    <Modal
     isOpen={editModeIsOpen}
     onRequestClose={() => {setEditModeIsOpen(false); setModalIsOpen(false)}}
     contentLabel={styles.edit_modal}
@@ -89,10 +89,10 @@ export const EditModal: React.FC<EditModalProps> = (
                       >
                         &lt;
                       </button>
-                  <input className={styles.distance_option_field} type="number" 
-                  value={distanceOption}
-                  onChange={(e) => handleDistanceChange(e.target.value)}/>
-                    <button className={styles.distance_button}
+                        <input className={styles.distance_option_field} type="number" 
+                        value={distanceOption}
+                        onChange={(e) => handleDistanceChange(e.target.value)}/>
+                      <button className={styles.distance_button}
                         type="button"
                         onClick={() => handleDistanceChange(String(Number(distanceOption) + 1))}
                       >

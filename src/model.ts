@@ -8,6 +8,11 @@ export interface Run{
     isGoal:boolean;
 }
 
+export interface userSettings{
+    dateFormat:string;
+    distanceUnit:string;
+}
+
 
 // adding "status:string" and "pace:string" for future features
 /* export const exercisesMock: Exercise[] = [

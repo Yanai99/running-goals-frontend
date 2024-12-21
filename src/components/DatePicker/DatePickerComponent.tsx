@@ -22,7 +22,7 @@ const DatePickerComponent: React.FC<DatePickerComponentProps> = ({initialValue,s
       <DatePicker
         selected={selectedDate}
         onChange={handleDateChange}
-        dateFormat="dd/MM/yyyy"
+        dateFormat="MM/dd/yyyy"
         customInput={<CustomInput />}
       />
     </div>

@@ -1,0 +1,111 @@
+.button,
+.bottom_modal_button,
+.button_active,
+.button_inactive,
+.reset_button,
+.reset_button:hover {
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  transform-origin: center;
+  font-family: "Gochi Hand", cursive;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 0 #516e65;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: red;
+}
+.button span,
+.bottom_modal_button span,
+.button_active span,
+.button_inactive span,
+.reset_button span,
+.reset_button:hover span {
+  background: #f1f5f8;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 2px solid #494a4b;
+  white-space: nowrap;
+}
+.button:active,
+.bottom_modal_button:active,
+.button_active:active,
+.button_inactive:active,
+.reset_button:active,
+.reset_button:hover:active {
+  transform: translateY(5px);
+  outline: 0;
+}
+.bottom_modal_button {
+  background-color: #f4e5b1;
+  border: 2px solid #729482;
+  font-size: 16px;
+  font-weight: bold;
+  color: #26332f;
+}
+.bottom_modal_button:hover {
+  background-color: #d5af3e;
+}
+.bottom_modal_button:active {
+  background-color: #dec168;
+}
+.settings_modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  height: 40%;
+  max-width: 600px;
+  min-width: 320px;
+  padding: 20px;
+  background-color: #f9f1d5;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px #516e65;
+  font-family: "Neucha", cursive;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.modal_buttons_container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.button_active {
+  background-color: #729482;
+  transition: all 0.3s ease-in-out;
+  /* Smooth transitions */
+}
+.button_inactive {
+  background-color: #f4e5b1;
+  transition: all 0.3s ease-in-out;
+}
+.radio_options_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.radio_buttons_container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.reset_button {
+  background-color: #ecb900;
+  height: 50px;
+}
+.reset_button:hover {
+  background-color: #ff5858;
+  height: 50px;
+}
+.centered_container {
+  display: flex;
+  justify-content: space-evenly;
+}
